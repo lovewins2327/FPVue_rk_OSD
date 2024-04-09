@@ -15,6 +15,8 @@ Build on the Rockchip linux system directly.
 
 ```
 git clone https://github.com/rockchip-linux/mpp.git
+cd mpp
+cmake -S . -B ./build
 sudo cmake --build build --target install
 ```
 
