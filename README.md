@@ -51,6 +51,11 @@ Show command line options:
 fpvue --help
 ```
 
+ffmpeg command covert ts to mp4
+```
+ffmpeg -i yourvideoname.ts -c:v libx264 output.mp4
+```
+
 ### Known issues
 
 1. Video is cropped when the fpv feed resolution is bigger than the screen mode.
