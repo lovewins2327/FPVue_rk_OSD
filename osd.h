@@ -56,6 +56,7 @@ struct osd_vars {
     float telemetry_throttle;
     float telemetry_resolution;
     float telemetry_arm;
+    int telemetry_camT;
     float armed;
     char c1[30];
     char c2[30];

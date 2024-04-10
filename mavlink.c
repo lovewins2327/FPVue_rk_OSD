@@ -277,6 +277,14 @@ void* __MAVLINK_THREAD__(void* arg) {
             }
             break;
 
+          case MAVLINK_MSG_ID_RAW_IMU: // OpenIPC Camera core temperature
+            {
+              mavlink_raw_imu_t raw_imu;
+              mavlink_msg_raw_imu_decode(&message, &raw_imu);
+              osd_vars.telemetry_camT = raw_imu.temperature / 100;
+            }
+            break;
+
           default:
             // printf("> MavLink message %d from %d/%d\n",
             //   message.msgid, message.sysid, message.compid);

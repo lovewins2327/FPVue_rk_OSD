@@ -12,6 +12,9 @@
 
 #define PATH_MAX	4096
 
+FILE* file;
+char output[300];
+
 struct osd_vars osd_vars;
 
 extern uint32_t frames_received;
@@ -209,7 +212,7 @@ void modeset_paint_buffer(struct modeset_buf *buf) {
     sprintf(msg, "THR:%.00f%%", osd_vars.telemetry_throttle);
     cairo_move_to(cr, 40, buf->height - 120);
     cairo_show_text(cr, msg);
-    
+
 	if (osd_vars.telemetry_level > 1){
 		sprintf(msg, "SATS:%.00f", osd_vars.telemetry_sats);
 		cairo_move_to(cr,buf->width - 140, buf->height - 30);
@@ -256,10 +259,20 @@ void modeset_paint_buffer(struct modeset_buf *buf) {
 		cairo_move_to(cr, x_center - 350, buf->height - 30);
 		cairo_show_text(cr, msg);
 	}
-    
+    //adding cam_temp
+    sprintf(msg, "CAM: %d°C", osd_vars.telemetry_camT);
+    cairo_move_to(cr, x_center - 650, buf->height - 30);
+    cairo_show_text(cr, msg);
+    file = popen("cat /sys/devices/virtual/thermal/thermal_zone0/temp","r");
+    fread(output, 1, sizeof(output), file);
+    sprintf(msg, "GS: %d°C", atoi(output)/1000);
+    pclose(file);
+    cairo_move_to(cr, x_center - 650, buf->height - 60);
+    cairo_show_text(cr, msg);    
+
     sprintf(msg, "RSSI:%.00f", osd_vars.telemetry_rssi);
     cairo_move_to(cr, x_center - 50, buf->height - 30);
-    cairo_show_text(cr,  msg);
+    cairo_show_text(cr, msg);
 
     // Print rate stats
     struct timespec current_timestamp;
