@@ -52,9 +52,9 @@ fpvue --help
 ```
 
 ffmpeg command covert ts to mp4
-'''
+```
 ffmpeg -i yourvideoname.ts -c:v libx264 output.mp4
-'''
+```
 
 ### Known issues
 
